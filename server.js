@@ -49,6 +49,21 @@ app.post('/api/flags', (req, res) => {
   saveFlags(flags);
   res.status(201).json(newFlag);
 });
+// Issue #2: Turn a flag on or off
+app.patch('/api/flags/:id/toggle', (req, res) => {
+  const flags = readFlags();
+  const flag = flags.find(f => f.id === Number(req.params.id));
+
+  // Error check: the flag must exist
+  if (!flag) {
+    return res.status(404).json({ error: 'Flag not found' });
+  }
+
+  flag.enabled = !flag.enabled; // switch: ON becomes OFF, OFF becomes ON
+  saveFlags(flags);
+  res.json(flag);
+});
+
 
 app.listen(PORT, () => {
   console.log(`LaunchLab running at http://localhost:${PORT}`);
