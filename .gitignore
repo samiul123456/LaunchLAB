@@ -1,4 +1,8 @@
 # Logs
+
+# launchLab test data 
+flags.json
+
 logs
 *.log
 npm-debug.log*
